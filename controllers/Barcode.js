@@ -85,6 +85,7 @@ export const createBarcode = async (req, res) => {
       fileName: `${name}.png`,
       height,
       whitespaceWidth: width,
+      showHumanReadableText: false,
     },
     text
   );
