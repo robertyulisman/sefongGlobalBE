@@ -8,7 +8,12 @@ import cors from "cors";
 import Router from "./routes/routes.js";
 // Import Morgan
 import morgan from "morgan";
+import path from "path";
 import { dbAbsensi, dbDika, dbHosting } from "./config/database.js";
+
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Init express
 const app = express();
@@ -18,6 +23,8 @@ app.use(express.json());
 app.use(cors());
 //  use morgan
 app.use(morgan("tiny"));
+
+app.use("/asset", express.static(path.join(__dirname, "asset")));
 
 // Testing database connection
 try {
