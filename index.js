@@ -12,6 +12,7 @@ import path from "path";
 import { dbAbsensi, dbDika, dbHosting } from "./config/database.js";
 
 import { fileURLToPath } from "url";
+import { getWhatsapp } from "./controllers/Whatsapp.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -44,5 +45,7 @@ const port = 5000;
 app.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)
 );
+
+app.get("/", getWhatsapp);
 
 // delete node module

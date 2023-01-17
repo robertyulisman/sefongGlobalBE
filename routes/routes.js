@@ -24,7 +24,7 @@ router.get("/attendance", getAttendance);
 router.get("/users", getUsers);
 
 // whatsapp
-router.get("/whatsapp", getWhatsapp);
+// router.get("/whatsapp", getWhatsapp);
 
 // create qr code
 router.get("/create_qr_code", createQrCode);
