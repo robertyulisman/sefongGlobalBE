@@ -3,6 +3,7 @@ import Whatsapp from "../models/Whatsapp.js";
 import cron from "node-cron";
 import { TableHints } from "sequelize";
 import { sentMessage } from "../utils/whatsappApi.js";
+import { phoneNumberFormatter } from "../utils/formatter.js";
 
 // Get semua product
 export const getWhatsapp = async (req, res) => {
@@ -23,11 +24,17 @@ export const getWhatsapp = async (req, res) => {
           task.stop();
 
           await data.reduce(async (acc, whatsapp) => {
-            console.log("whatsapp xxx", whatsapp.status);
+            // console.log("whatsapp xxx", whatsapp.status);
+            // console.log("whatsapp.pesan", whatsapp.pesan);
 
-            await sentMessage("6281271076751", whatsapp.pesan);
+            const dataMessage = {
+              tujuan: phoneNumberFormatter(whatsapp.no_hp),
+              message: eval("`" + whatsapp.pesan + "`"),
+            };
+            const responseWA = await sentMessage(dataMessage);
+            console.log("whatsapp response", responseWA);
             await Whatsapp.update(
-              { status: "N" },
+              { status: "P" },
               {
                 where: {
                   status: "N",
