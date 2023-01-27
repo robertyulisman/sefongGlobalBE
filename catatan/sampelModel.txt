@@ -1,0 +1,21 @@
+import { Sequelize } from "sequelize";
+import { dbPTSIB } from "../config/database.js";
+const { DataTypes } = Sequelize;
+
+const Uom = dbPTSIB.define(
+  "inuom",
+  {
+    InUomID: {
+      type: DataTypes.CHAR(5),
+      allowNull: false,
+      primaryKey: true,
+    },
+   
+  {
+    timestamps: false,
+    freezeTableName: true,
+    
+  }
+);
+
+export default Uom;

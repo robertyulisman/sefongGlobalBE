@@ -31,7 +31,14 @@ export const getWhatsapp = async (req, res) => {
               tujuan: phoneNumberFormatter(whatsapp.no_hp),
               message: eval("`" + whatsapp.pesan + "`"),
             };
-            const responseWA = await sentMessage(dataMessage);
+
+            const responseWA = await sentMessage(dataMessage)
+              .then((response) => {
+                console.log("response wa berhasil", response);
+              })
+              .catch((err) => {
+                console.log("err sent wa", err);
+              });
             console.log("whatsapp response", responseWA);
             await Whatsapp.update(
               { status: "P" },
@@ -41,6 +48,7 @@ export const getWhatsapp = async (req, res) => {
                 },
               }
             );
+
             await acc;
           }, Promise.resolve());
 

@@ -1,46 +1,55 @@
-// import sequelize
 import { Sequelize } from "sequelize";
+import Config from "./index.js";
+const { db_absensi, db_dika, db_default } = Config;
 
-// localhost
-// create connection
+// /**
+//  *
+//   sampel connection
+//   new Sequelize(
+//   "database", "username", "password", {
+//   host: "host",
+//   dialect: "mysql",
+//  *
+//  */
+
+// database local
+const db = new Sequelize("purchasing", "robertyulisman", "12341jdb21i437t6", {
+  host: "192.168.100.51",
+  dialect: "mysql",
+});
+
+// database ptsib from server sefong
+const dbPTSIB = new Sequelize(
+  db_default.database,
+  db_default.username,
+  db_default.password,
+  {
+    host: db_default.host,
+    port: 3307,
+    dialect: "mysql",
+  }
+);
+
+// database absensi from hosting
 const dbAbsensi = new Sequelize(
-  // "sequelize_db", "root", "", {
-  // host: "localhost",
-  // dialect: "mysql",
-  "u654248235_absensi",
-  "u654248235_absensi",
-  "*5zV2ZZoGH",
+  db_absensi.database,
+  db_absensi.username,
+  db_absensi.password,
   {
-    host: "109.106.254.51",
+    host: db_absensi.host,
     dialect: "mysql",
   }
 );
 
-// hosting
+// database dika from hosting
 const dbDika = new Sequelize(
-  "u654248235_data",
-  "u654248235_data",
-  ">/<Asdcexwzq123",
+  db_dika.database,
+  db_dika.username,
+  db_dika.password,
   {
-    host: "109.106.254.51",
+    host: db_dika.host,
     dialect: "mysql",
   }
 );
 
-// hosting absensi
-const dbHosting = new Sequelize(
-  "u654248235_absensi",
-  "u654248235_absensi",
-  "*5zV2ZZoGH",
-  {
-    host: "109.106.254.51",
-    dialect: "mysql",
-  }
-);
-// export connection
-export { dbAbsensi, dbDika, dbHosting };
-
-// auto generate sequelize model
-// sequelize-auto -h <host> -d <database> -u <user> -x [password] -p [port]  --dialect [dialect] -c [/path/to/config] -o [/path/to/models]
-
-// sequelize-auto -o "./models" -d u654248235_absensi -h 109.106.254.51 -u u654248235_absensi -p 3306 -x *5zV2ZZoGH -e mysql
+export { dbAbsensi, dbDika, dbPTSIB, db };

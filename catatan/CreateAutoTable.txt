@@ -1,0 +1,15 @@
+catatan : 
+-o = output model
+-d = Database
+-h = Host
+-u = username
+-x = password
+-p = port
+-e = dialeg
+-t = table name
+
+sequelize-auto -o "./models" -d ptsib22 -h server -u master3 -p 3307 -x 753951 -e mysql -t utcur
+
+//ambil database from localhost
+
+sequelize-auto -o "./models" -d purchasing -h localhost -u root -x  -e mysql -t inmst

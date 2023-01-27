@@ -1,18 +1,31 @@
+// Import Dot Env
+import { config } from "dotenv";
+config();
 // Import express
 import express from "express";
+
 // Import cors
 import cors from "cors";
-// Import connection
-// import db from "./config/database.js";
+
 // Import router
 import Router from "./routes/routes.js";
 // Import Morgan
 import morgan from "morgan";
+
+//  Import Path
 import path from "path";
-import { dbAbsensi, dbDika, dbHosting } from "./config/database.js";
+
+// Import Body Parser
+import bodyParser from "body-parser";
+
+// Import connection
+import { dbAbsensi, dbDika, dbPTSIB, db } from "./config/database.js";
 
 import { fileURLToPath } from "url";
 import { getWhatsapp } from "./controllers/Whatsapp.js";
+import Passport from "./services/Passport.js";
+
+import { getRealtimeAttendance } from "./controllers/Attendance.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -20,6 +33,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 // use express json
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 // use cors
 app.use(cors());
 //  use morgan
@@ -31,7 +46,8 @@ app.use("/asset", express.static(path.join(__dirname, "asset")));
 try {
   await dbAbsensi.authenticate();
   await dbDika.authenticate();
-  await dbHosting.authenticate();
+  await dbPTSIB.authenticate();
+  await db.authenticate();
   console.log("Connection has been established successfully.");
 } catch (error) {
   console.error("Unable to connect to the database:", error);
@@ -46,8 +62,6 @@ app.listen(port, () =>
   console.log(`Server running at http://localhost:${port}`)
 );
 
-getWhatsapp();
-
-// app.get("/", getWhatsapp);
-
-// delete node module
+// getWhatsapp();
+// getRealtimeAttendance();
+Passport();

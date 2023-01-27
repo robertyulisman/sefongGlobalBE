@@ -1,4 +1,5 @@
 import ZKLib from "qr-zklib";
+import Karyawan from "../models/Karyawan.js";
 
 const config = {
   ip: "192.168.100.201",
@@ -118,6 +119,30 @@ export const getAttendance = async (req, res) => {
   };
 
   handleAttendance(); // in the end we execute the function
+};
+
+export const getRealtimeAttendance = async (req, res) => {
+  let zkInstance = new ZKLib(config.ip, config.port, 5200, 5000);
+  try {
+    // Create socket to machine
+    await zkInstance.createSocket();
+
+    // Get general info like logCapacity, user counts, logs count
+    // It's really useful to check the status of device
+    console.log(await zkInstance.getInfo());
+  } catch (e) {
+    console.log(e);
+    if (e.code === "EADDRINUSE") {
+    }
+  }
+
+  const data = await zkInstance.getRealTimeLogs();
+
+  if (data) {
+    console.log("data", data);
+  }
+
+  // res.status(200).json({ message: "okeeee xx" });
 };
 
 export const getAllAttendanceData = async (req, res) => {
