@@ -9,14 +9,20 @@ const { db_absensi, db_dika, db_default } = Config;
 //   "database", "username", "password", {
 //   host: "host",
 //   dialect: "mysql",
-//  *
+//  * fajri_database
 //  */
 
-// database local
-const db = new Sequelize("purchasing", "robertyulisman", "12341jdb21i437t6", {
-  host: "192.168.100.51",
+// database local komputer fajri
+const db = new Sequelize("purchasing", "fajri_database", "Hzs&C,nNqv2c!,v", {
+  host: "192.168.100.72",
   dialect: "mysql",
 });
+
+// database local laptop robert
+// const db = new Sequelize("purchasing", "robertyulisman", "12341jdb21i437t6", {
+//   host: "192.168.100.51",
+//   dialect: "mysql",
+// });
 
 // database ptsib from server sefong
 const dbPTSIB = new Sequelize(
