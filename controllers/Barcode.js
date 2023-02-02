@@ -19,10 +19,13 @@ export const createQrCode = async (req, res) => {
     res.send("Empty Data");
   }
 
+  const newData = data.replace(/\%20/gi, " ").toString();
+  console.log("newData", newData);
+
   const src = `./asset/images/qr/${name}.png`;
 
   const stream = fs.createWriteStream(src);
-  qr.toFileStream(stream, data, qrOption);
+  qr.toFileStream(stream, newData, qrOption);
 
   res.setHeader("content-type", "image/png");
   res.sendFile(path.resolve(src));
